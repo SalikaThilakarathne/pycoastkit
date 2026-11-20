@@ -1,0 +1,88 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pycoastkit"
+dynamic = ["version"]
+description = "A toolkit for sandy coasts: storms and storm clusters, beach profiles, shorelines, sandbars, storm erosion, beach recovery and vulnerability, with Hasaki (Japan) data tools."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Salika Thilakarathne" }]
+maintainers = [{ name = "Salika Thilakarathne" }]
+keywords = [
+    "coastal storms",
+    "storm clusters",
+    "beach erosion",
+    "shoreline change",
+    "beach profiles",
+    "sandbars",
+    "beach recovery",
+    "coastal vulnerability",
+    "significant wave height",
+    "Hasaki",
+    "NOWPHAS",
+    "coastal engineering",
+    "oceanography",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Atmospheric Science",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+# One install gives everything: analysis, plots, parquet files and the journal style.
+dependencies = [
+    "numpy>=1.23",
+    "scipy>=1.9",
+    "pandas>=2.0",
+    "matplotlib>=3.6",
+    "pyarrow>=12",
+    "SciencePlots>=2.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+docs = ["mkdocs-material>=9.5", "mkdocstrings[python]>=0.26"]
+
+[project.urls]
+Homepage = "https://github.com/SalikaThilakarathne/pycoastkit"
+Documentation = "https://salikathilakarathne.github.io/pycoastkit/"
+Repository = "https://github.com/SalikaThilakarathne/pycoastkit"
+Issues = "https://github.com/SalikaThilakarathne/pycoastkit/issues"
+Changelog = "https://salikathilakarathne.github.io/pycoastkit/changelog/"
+Author = "https://www.hereon.de/institutes/coastal_systems_analysis_modeling/coastal_climate_regional_sea_level_changes/team/114121/index.php.en"
+
+[project.scripts]
+pycoastkit = "pycoastkit.cli:main"
+
+[tool.hatch.version]
+path = "src/pycoastkit/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pycoastkit"]
+
+# Only these paths go into the source distribution. Everything else in this
+# folder (original scripts, notebooks, data) is never published.
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "src/pycoastkit",
+    "tests",
+    "docs",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "pyproject.toml",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
